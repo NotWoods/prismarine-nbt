@@ -2,15 +2,15 @@
 
 'use strict'
 
-const nbt = require('../nbt')
+const nbt = require('../')
 const expect = require('chai').expect
 
 function write (type, packet) {
-  return nbt.proto.createPacketBuffer(type, packet)
+  return nbt.proto().createPacketBuffer(type, packet)
 }
 
 function read (type, buffer) {
-  return nbt.proto.parsePacketBuffer(type, buffer).data
+  return nbt.proto().parsePacketBuffer(type, buffer).data
 }
 
 const testData = [

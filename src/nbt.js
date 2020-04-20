@@ -2,7 +2,7 @@ import ProtoDef from 'protodef/src/protodef'
 import { compound } from './compound'
 import nbtJson from './nbt.json'
 
-export { Buffer } from 'buffer';
+export { Buffer } from 'buffer'
 
 function createProto (littleEndian) {
   let proto

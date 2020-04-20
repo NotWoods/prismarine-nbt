@@ -1,4 +1,5 @@
 // @ts-check
+import { builtinModules } from 'module'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
@@ -7,13 +8,13 @@ import nodeResolve from '@rollup/plugin-node-resolve'
  * @param {import('rollup').ModuleFormat} format
  * @returns {import('rollup').RollupOptions}
  */
-function config(format) {
+function config (format) {
   return {
     input: 'src/nbt.js',
     output: [{ file: `dist/nbt.${format}.js`, format }],
     plugins: [
       nodeResolve({
-        preferBuiltins: false,
+        preferBuiltins: format === 'cjs',
         customResolveOptions: { moduleDirectory: ['node_modules', 'custom_modules'] }
       }),
       commonjs({
@@ -21,6 +22,7 @@ function config(format) {
       }),
       json()
     ],
+    external: format === 'cjs' ? builtinModules : []
   }
 }
 

@@ -1,5 +1,5 @@
 const fs = require('fs')
-const nbt = require('../nbt')
+const nbt = require('../')
 
 fs.readFile('bigtest.nbt.gz', function (error, data) {
   if (error) {

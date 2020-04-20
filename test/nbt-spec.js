@@ -2,9 +2,9 @@
 
 'use strict'
 
-const fs = require('fs')
-const nbt = require('../nbt')
-const expect = require('chai').expect
+const fs = require('fs').promises
+const nbt = require('../')
+const { expect } = require('chai')
 
 describe('nbt.parse', function () {
   function checkBigtest (data) {
@@ -28,49 +28,21 @@ describe('nbt.parse', function () {
     })
   }
 
-  it('parses a compressed NBT file', function (done) {
-    fs.readFile('sample/bigtest.nbt.gz', function (error, data) {
-      if (error) {
-        throw error
-      }
-      nbt.parse(data, function (err, data) {
-        if (err) {
-          throw error
-        }
-        checkBigtest(data)
-        done()
-      })
-    })
-  })
+  it('parses an uncompressed NBT file', async function () {
+    const file = await fs.readFile('sample/bigtest.nbt')
+    const data = nbt.parseUncompressed(file)
 
-  it('parses an uncompressed NBT file through parse()', function (done) {
-    fs.readFile('sample/bigtest.nbt', function (error, data) {
-      if (error) {
-        throw error
-      }
-      nbt.parse(data, function (error, data) {
-        if (error) {
-          throw error
-        }
-        checkBigtest(data)
-        done()
-      })
-    })
+    checkBigtest(data)
   })
 })
 
 describe('nbt.write', function () {
-  it('writes an uncompressed NBT file', function (done) {
-    fs.readFile('sample/bigtest.nbt', function (err, nbtdata) {
-      if (err) {
-        throw err
-      }
-      expect(nbt.writeUncompressed(require('../sample/bigtest'))).to.deep.equal(nbtdata)
-      done()
-    })
+  it('writes an uncompressed NBT file', async function () {
+    const nbtdata = await fs.readFile('sample/bigtest.nbt')
+    expect(nbt.writeUncompressed(require('../sample/bigtest'))).to.deep.equal(nbtdata)
   })
 
-  it('re-encodes it input perfectly', function () {
+  it('re-encodes it input perfectly', async function () {
     const input = require('../sample/bigtest')
     const output = nbt.writeUncompressed(input)
     const decodedOutput = nbt.parseUncompressed(output)

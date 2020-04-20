@@ -1,5 +1,5 @@
 const fs = require('fs')
-const nbt = require('../nbt')
+const nbt = require('../')
 
 fs.readFile('level.dat', function (error, data) {
   if (error) {
