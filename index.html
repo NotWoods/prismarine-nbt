@@ -1,0 +1,16 @@
+<script type="module">
+import {parseUncompressed, Buffer} from './dist/nbt.es.js';
+
+async function test() {
+  function checkBigtest(data) {
+    console.log(data.value.stringTest.value)
+    console.log(data.value['nested compound test'].value);
+  }
+
+  // parses an uncompressed NBT file
+  const data = await fetch('./sample/bigtest.nbt').then(res => res.arrayBuffer())
+  checkBigtest(parseUncompressed(Buffer.from(data)));
+}
+
+test();
+</script>

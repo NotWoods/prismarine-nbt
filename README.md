@@ -4,6 +4,8 @@
 
 Prismarine-NBT is a JavaScript parser and serializer for [NBT](http://wiki.vg/NBT) archives, for use with [Node.js](http://nodejs.org/).
 
+This fork is designed to run in browser enviornments in addition to Node.
+
 
 ## Usage
 

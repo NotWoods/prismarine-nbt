@@ -1,7 +1,3 @@
-module.exports = {
-  'compound': [readCompound, writeCompound, sizeOfCompound]
-}
-
 function readCompound (buffer, offset, typeArgs, rootNode) {
   const results = {
     value: {},
@@ -51,3 +47,5 @@ function sizeOfCompound (value, typeArgs, rootNode) {
   }, 0)
   return 1 + size
 }
+
+export const compound = [readCompound, writeCompound, sizeOfCompound]
